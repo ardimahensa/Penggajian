@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"><?php echo $title?></h1>
+    <h1 class="h3 mb-0 text-gray-800"><?php echo $title ?></h1>
   </div>
 
   <div class="card mb-3">
@@ -32,31 +32,31 @@
 	    <select class="form-control ml-3" name="tahun">
 		    <option value=""> Pilih Tahun </option>
 		    <?php $tahun = date('Y');
-		    for($i=2020;$i<$tahun+5;$i++) { ?>
+for ($i = 2020; $i < $tahun + 5; $i++) {?>
 		    <option value="<?php echo $i ?>"><?php echo $i ?></option>
 		<?php }?>
 		</select>
 	    </select>
 	  </div>
-	  
+
 	  <button type="submit" class="btn btn-primary mb-2 ml-auto"><i class="fas fa-eye"></i> Tampilkan Data</button>
 	  <a href="<?php echo base_url('admin/data_absensi/input_absensi') ?>" class="btn btn-success mb-2 ml-3"><i class="fas fa-plus"></i> Input Kehadiran</a>
 	</form>
   </div>
 </div>
 </div>
-	
+
 	<?php
-		if((isset($_GET['bulan']) && $_GET['bulan']!='') && (isset($_GET['tahun']) && $_GET['tahun']!='')){
-			$bulan = $_GET['bulan'];
-			$tahun = $_GET['tahun'];
-			$bulantahun = $bulan.$tahun;
-		}else{
-			$bulan = date('m');
-			$tahun = date('Y');
-			$bulantahun = $bulan.$tahun;
-		}
-	?>
+if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) && $_GET['tahun'] != '')) {
+    $bulan = $_GET['bulan'];
+    $tahun = $_GET['tahun'];
+    $bulantahun = $bulan . $tahun;
+} else {
+    $bulan = date('m');
+    $tahun = date('Y');
+    $bulantahun = $bulan . $tahun;
+}
+?>
 
 
 	<div class="alert alert-info">
@@ -65,14 +65,14 @@
 
 	<?php
 
-	$jml_data = count($absensi);
-	if($jml_data > 0 ) { ?>
+$jml_data = count($absensi);
+if ($jml_data > 0) {?>
 
-		<div class="container-fluid">
+		<div class="container-fluid ">
 		  <div class="card shadow mb-4">
 		   <div class="card-body">
 		     <div class="table-responsive">
-		       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+		       <table class="table table-bordered align-items-center" id="dataTable" width="100%" cellspacing="0">
 		         <thead class="thead-dark">
 		           <tr>
 		              	<td class="text-center">No</td>
@@ -81,24 +81,22 @@
 						<td class="text-center">Jenias Kalamin</td>
 						<td class="text-center">Jabatan</td>
 						<td class="text-center">Hadir</td>
-						<td class="text-center">Sakit</td>
-						<td class="text-center">Alpha</td>
+						<td class="text-center">Lembur</td>
 		           </tr>
 		         </thead>
 		         <tbody>
-		           <?php $no=1; foreach($absensi as $a) :?>
+		           <?php $no = 1;foreach ($absensi as $a): ?>
 					<tr>
-						<td class="text-center"><?php echo $no++?></td>
-						<td class="text-center"><?php echo $a->nik?></td>
-						<td class="text-center"><?php echo $a->nama_pegawai?></td>
-						<td class="text-center"><?php echo $a->jenis_kelamin?></td>
-						<td class="text-center"><?php echo $a->nama_jabatan?></td>
-						<td class="text-center"><?php echo $a->hadir?></td>
-						<td class="text-center"><?php echo $a->sakit?></td>
-						<td class="text-center"><?php echo $a->alpha?></td>
+						<td class="text-center"><?php echo $no++ ?></td>
+						<td class="text-center"><?php echo $a->nik ?></td>
+						<td class="text-center"><?php echo $a->nama_pegawai ?></td>
+						<td class="text-center"><?php echo $a->jenis_kelamin ?></td>
+						<td class="text-center"><?php echo $a->nama_jabatan ?></td>
+						<td class="text-center"><?php echo $a->hadir ?></td>
+						<td class="text-center"><?php echo $a->lembur ?></td>
 					</tr>
 		            </tr>
-		          <?php endforeach; ?>
+		          <?php endforeach;?>
 		         </tbody>
 		       </table>
 		     </div>
@@ -106,7 +104,8 @@
 		  </div>
 		</div>
 
-	<?php }else { ?>
-		<span class="badge badge-danger"><i class="fas fa-info-circle"></i> Data masih kosong, silakan input data kehadiran pada bulan dan tahun yang anda pilih</span>
-	<?php } ?>
+	<?php } else {?>
+		<center><span class="badge badge-danger"><i class="fas fa-info-circle"></i> Data masih kosong, silakan input data kehadiran pada bulan dan tahun yang anda pilih</span>
+	</center>
+	<?php }?>
 </div>

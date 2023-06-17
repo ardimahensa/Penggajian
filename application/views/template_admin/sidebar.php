@@ -4,11 +4,11 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-        <div class="sidebar-brand-text mx-3"> Penggajian </div>
+      <a class="sidebar-brand align-items-center justify-content-center" href="#">
+        <div class="sidebar-brand-text mx-3">Penggajian</div>
       </a>
 
       <!-- Divider -->
@@ -44,7 +44,6 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo base_url('admin/data_absensi') ?>">Data Absensi</a>
-            <a class="collapse-item" href="<?php echo base_url('admin/potongan_gaji') ?>">Setting Potongan Gaji</a>
             <a class="collapse-item" href="<?php echo base_url('admin/data_penggajian') ?>">Data Gaji</a>
           </div>
         </div>
@@ -74,7 +73,7 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('login/logout')?>">
+        <a class="nav-link" href="<?php echo base_url('login') ?>">
           <i class="fas fa-fw fa-sign-out-alt"></i>
           <span>Logout</span></a>
       </li>
@@ -101,7 +100,7 @@
             <i class="fa fa-bars"></i>
           </button>
 
-          <h4 class="font-weight-bold">PT. Indonesia Bangkit</h4>
+          <img src="<?php echo base_url(); ?>assets/img/logo.png" width="160">
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -111,10 +110,10 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Selamat Datang <?php echo $this->session->userdata('nama_pegawai')?></span>
-                <img class="img-profile rounded-circle" src="<?php echo base_url('photo/').$this->session->userdata('photo') ?>">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Selamat Datang <?php echo $this->session->userdata('nama_pegawai') ?></span>
+                <img class="img-profile rounded-circle" src="<?php echo base_url('photo/') . $this->session->userdata('photo') ?>">
               </a>
-              
+
             </li>
 
           </ul>

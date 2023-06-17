@@ -3,7 +3,7 @@
 
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"><?php echo $title?></h1>
+    <h1 class="h3 mb-0 text-gray-800"><?php echo $title ?></h1>
   </div>
 
   <div class="card mb-3">
@@ -35,29 +35,29 @@
 	    <select class="form-control ml-3" name="tahun">
 		    <option value=""> Pilih Tahun </option>
 		    <?php $tahun = date('Y');
-		    for($i=2020;$i<$tahun+5;$i++) { ?>
+for ($i = 2020; $i < $tahun + 5; $i++) {?>
 		    <option value="<?php echo $i ?>"><?php echo $i ?></option>
 		<?php }?>
 		</select>
 	    </select>
 	  </div>
-	  
+
 	  <button type="submit" class="btn btn-primary mb-2 ml-auto"><i class="fas fa-eye"></i> Generate Form</button>
 	</form>
   </div>
 </div>
-	
+
 	<?php
-		if((isset($_GET['bulan']) && $_GET['bulan']!='') && (isset($_GET['tahun']) && $_GET['tahun']!='')){
-			$bulan = $_GET['bulan'];
-			$tahun = $_GET['tahun'];
-			$bulantahun = $bulan.$tahun;
-		}else{
-			$bulan = date('m');
-			$tahun = date('Y');
-			$bulantahun = $bulan.$tahun;
-		}
-	?>
+if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) && $_GET['tahun'] != '')) {
+    $bulan = $_GET['bulan'];
+    $tahun = $_GET['tahun'];
+    $bulantahun = $bulan . $tahun;
+} else {
+    $bulan = date('m');
+    $tahun = date('Y');
+    $bulantahun = $bulan . $tahun;
+}
+?>
 
 	<div class="alert alert-info">
 		Menampilkan Data Kehadiran Pegawai Bulan: <span class="font-weight-bold"><?php echo $bulan ?></span> Tahun: <span class="font-weight-bold"><?php echo $tahun ?></span>
@@ -65,34 +65,31 @@
 	<form method="POST">
 	<button class="btn btn-success mb-3" type="submit" name="submit" value="submit">Simpan</button>
 	<table class="table table-bordered table-striped">
-		<tr>
-			<td class="text-center">No</td>
-			<td class="text-center">NIK</td>
-			<td class="text-center">Nama Pegawai</td>
-			<td class="text-center">Jenias Kalamin</td>
-			<td class="text-center">Jabatan</td>
-			<td class="text-center" width="8%">Hadir</td>
-			<td class="text-center" width="8%">Sakit</td>
-			<td class="text-center" width="8%">Alpha</td>
+		<tr class="text-center">
+			<td>No</td>
+			<td>NIK</td>
+			<td>Nama Pegawai</td>
+			<td>Jenis Kalamin</td>
+			<td>Jabatan</td>
+			<td width="8%">Hadir</td>
+			<td width="8%">Lembur</td>
 		</tr>
-		<?php $no=1; foreach($input_absensi as $a) :?>
-			<tr>
-				<input type="hidden" name="bulan[]" class="form-control" value="<?php echo $bulantahun?>">
-				<input type="hidden" name="nik[]" class="form-control" value="<?php echo $a->nik?>">
-				<input type="hidden" name="nama_pegawai[]" class="form-control" value="<?php echo $a->nama_pegawai?>">
-				<input type="hidden" name="jenis_kelamin[]" class="form-control" value="<?php echo $a->jenis_kelamin?>">
-				<input type="hidden" name="nama_jabatan[]" class="form-control" value="<?php echo $a->nama_jabatan?>">
+		<?php $no = 1;foreach ($input_absensi as $a): ?>
+			<tr align="center">
+				<input type="hidden" name="bulan[]" class="form-control" value="<?php echo $bulantahun ?>">
+				<input type="hidden" name="nik[]" class="form-control" value="<?php echo $a->nik ?>">
+				<input type="hidden" name="nama_pegawai[]" class="form-control" value="<?php echo $a->nama_pegawai ?>">
+				<input type="hidden" name="jenis_kelamin[]" class="form-control" value="<?php echo $a->jenis_kelamin ?>">
+				<input type="hidden" name="nama_jabatan[]" class="form-control" value="<?php echo $a->nama_jabatan ?>">
 
-
-				<td><?php echo $no++?></td>
-				<td><?php echo $a->nik?></td>
-				<td><?php echo $a->nama_pegawai?></td>
-				<td><?php echo $a->jenis_kelamin?></td>
-				<td><?php echo $a->nama_jabatan?></td>
+				<td><?php echo $no++ ?></td>
+				<td><?php echo $a->nik ?></td>
+				<td><?php echo $a->nama_pegawai ?></td>
+				<td><?php echo $a->jenis_kelamin ?></td>
+				<td><?php echo $a->nama_jabatan ?></td>
 				<td><input type="number" name="hadir[]" class="form-control" value="0"></td>
-				<td><input type="number" name="sakit[]" class="form-control" value="0"></td>
-				<td><input type="number" name="alpha[]" class="form-control" value="0"></td>
-		<?php endforeach; ?>
+				<td><input type="number" name="lembur[]" class="form-control" value="0"></td>
+		<?php endforeach;?>
 	</table><br></br><br></br>
 	</form>
 
