@@ -47,8 +47,10 @@
 			<th class="text-center">Nama Pegawai</th>
 			<th class="text-center">Jenis Kelamin</th>
 			<th class="text-center">Jabatan</th>
-			<th class="text-center">GajI Pokok</th>
-			<th class="text-center">Tj. Transport</th>
+			<th class="text-center">Gaji Pokok</th>
+			<th class="text-center">Tunjangan Jabatan</th>
+			<th class="text-center">Tunjangan Transport</th>
+			<th class="text-center">Uang Lembur</th>
 			<th class="text-center">Uang Makan</th>
 			<th class="text-center">Total Gaji</th>
 		</tr>
@@ -61,9 +63,11 @@
 				<td class="text-center"><?php echo $g->jenis_kelamin ?></td>
 				<td class="text-center"><?php echo $g->nama_jabatan ?></td>
 				<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok, 0, ',', '.') ?></td>
+				<td class="text-center">Rp. <?php echo number_format($g->tj_jabatan, 0, ',', '.') ?></td>
 				<td class="text-center">Rp. <?php echo number_format($g->tj_transport, 0, ',', '.') ?></td>
+				<td class="text-center">Rp. <?php echo number_format($g->uang_lembur, 0, ',', '.') ?></td>
 				<td class="text-center">Rp. <?php echo number_format($g->uang_makan, 0, ',', '.') ?></td>
-				<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok + $g->tj_transport + $g->uang_makan, 0, ',', '.') ?></td>
+				<td class="text-center">Rp. <?php echo number_format($g->gaji_pokok + $$g->tj_transport + $g->uang_makan, 0, ',', '.') ?></td>
 			</tr>
 		<?php endforeach; ?>
 	</table>
@@ -83,6 +87,6 @@
 
 </html>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	window.print();
-</script>
+</script> -->

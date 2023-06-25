@@ -2,7 +2,6 @@
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800"><?php echo $title ?></h1>
 	</div>
-
 	<div class="card mb-3">
 		<div class="card-header bg-primary text-white">
 			Filter Data Gaji Pegawai
@@ -49,15 +48,7 @@ if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) &&
     $bulantahun = $bulan . $tahun;
 }
 ?>
-
 				<button type="submit" class="btn btn-primary mb-2 ml-auto"><i class="fas fa-eye"></i> Tampilkan Data</button>
-
-				<?php if (count($gaji) > 0) {?>
-					<a href="<?php echo base_url('admin/data_penggajian/cetak_gaji?bulan=' . $bulan), '&tahun=' . $tahun ?>" class="btn btn-success mb-2 ml-3"><i class="fas fa-print"></i> Cetak Daftar Gaji</a>
-				<?php } else {?>
-					<button type="button" class="btn btn-success mb-2 ml-3" data-toggle="modal" data-target="#exampleModal">
-						<i class="fas fa-print"></i> Cetak Daftar Gaji</button>
-				<?php }?>
 
 			</form>
 		</div>

@@ -65,7 +65,7 @@ if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) &&
 
 	<?php
 
-$jml_data = count($absensi);
+$jml_data = count($presences);
 if ($jml_data > 0) {?>
 
 		<div class="container-fluid ">
@@ -76,22 +76,20 @@ if ($jml_data > 0) {?>
 		         <thead class="thead-dark">
 		           <tr>
 		              	<td class="text-center">No</td>
-						<td class="text-center">NIK</td>
+		              	<td class="text-center">NIK</td>
 						<td class="text-center">Nama Pegawai</td>
-						<td class="text-center">Jenias Kalamin</td>
 						<td class="text-center">Jabatan</td>
 						<td class="text-center">Hadir</td>
 						<td class="text-center">Lembur</td>
 		           </tr>
 		         </thead>
 		         <tbody>
-		           <?php $no = 1;foreach ($absensi as $a): ?>
+		           <?php $no = 1;foreach ($presences as $a): ?>
 					<tr>
 						<td class="text-center"><?php echo $no++ ?></td>
 						<td class="text-center"><?php echo $a->nik ?></td>
-						<td class="text-center"><?php echo $a->nama_pegawai ?></td>
-						<td class="text-center"><?php echo $a->jenis_kelamin ?></td>
-						<td class="text-center"><?php echo $a->nama_jabatan ?></td>
+						<td class="text-center"><?php echo $a->full_name ?></td>
+						<td class="text-center"><?php echo $a->name ?></td>
 						<td class="text-center"><?php echo $a->hadir ?></td>
 						<td class="text-center"><?php echo $a->lembur ?></td>
 					</tr>

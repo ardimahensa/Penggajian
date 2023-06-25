@@ -88,34 +88,34 @@ CREATE TABLE `data_pegawai` (
   `tanggal_masuk` date NOT NULL,
   `status` varchar(50) NOT NULL,
   `photo` varchar(100) NOT NULL,
-  `hak_akses` int(11) NOT NULL
+  `role_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `data_pegawai`
 --
 
-INSERT INTO `data_pegawai` (`id_pegawai`, `nik`, `nama_pegawai`, `username`, `password`, `jenis_kelamin`, `jabatan`, `tanggal_masuk`, `status`, `photo`, `hak_akses`) VALUES
+INSERT INTO `data_pegawai` (`id_pegawai`, `nik`, `nama_pegawai`, `username`, `password`, `jenis_kelamin`, `jabatan`, `tanggal_masuk`, `status`, `photo`, `role_id`) VALUES
 (1, '123456789', 'Fauzi', 'fauzi', '0bd9897bf12294ce35fdc0e21065c8a7', 'Laki-Laki', 'Admin', '2020-12-26', 'Karyawan Tetap', 'pegawai-210101-a7ca89f5fc.png', 1),
 (2, '0987654321', 'Dodi', 'dodi', 'dc82a0e0107a31ba5d137a47ab09a26b', 'Laki-Laki', 'Staff Marketing', '2021-01-02', 'Karyawan Tidak Tetap', 'pegawai-210101-9847084dc8.png', 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hak_akses`
+-- Table structure for table `role_id`
 --
 
-CREATE TABLE `hak_akses` (
+CREATE TABLE `role_id` (
   `id` int(11) NOT NULL,
   `keterangan` varchar(50) NOT NULL,
-  `hak_akses` int(11) NOT NULL
+  `role_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `hak_akses`
+-- Dumping data for table `role_id`
 --
 
-INSERT INTO `hak_akses` (`id`, `keterangan`, `hak_akses`) VALUES
+INSERT INTO `role_id` (`id`, `keterangan`, `role_id`) VALUES
 (1, 'admin', 1),
 (2, 'pegawai', 2);
 
@@ -162,9 +162,9 @@ ALTER TABLE `data_pegawai`
   ADD PRIMARY KEY (`id_pegawai`);
 
 --
--- Indexes for table `hak_akses`
+-- Indexes for table `role_id`
 --
-ALTER TABLE `hak_akses`
+ALTER TABLE `role_id`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -196,9 +196,9 @@ ALTER TABLE `data_pegawai`
   MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `hak_akses`
+-- AUTO_INCREMENT for table `role_id`
 --
-ALTER TABLE `hak_akses`
+ALTER TABLE `role_id`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --

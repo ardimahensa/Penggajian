@@ -8,40 +8,38 @@
    <script src="<?php echo base_url(); ?>assets/js/a81368914c.js"></script>
    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
-<body class="image">
-   <img src="<?php echo base_url(); ?>assets/img/landing.jpg">
-   <div class="container">
-      <div class="img">
-         <img src="<?php echo base_url(); ?>assets/img/home.svg">
-      </div>
-      <div class="login-content">
-         <form class="user" method="POST" action="<?php echo base_url('login') ?>">
-            <h2 class="title">APLIKASI PENGGAJIAN</h2>
-            <?php echo $this->session->flashdata('pesan') ?>
-            <div class="input-div one">
-               <div class="i">
-                  <i class="fas fa-user"></i>
-               </div>
-               <div class="div">
-                  <h5>Username <?php echo form_error('username', '<div class="text-small text-danger"> </div>') ?></h5>
-                  <input type="text" class="input" name="username">
-               </div>
-            </div>
-            <div class="input-div pass">
-               <div class="i">
-                  <i class="fas fa-lock"></i>
-               </div>
-               <div class="div">
-                  <h5>Password <?php echo form_error('password', '<div class="text-small text-danger"> </div>') ?></h5>
-                  <input type="password" class="input" name="password">
-               </div>
-            </div>
-            <input type="submit" class="btn" value="Login">
-         </form>
-      </div>
+<body style="background-color:azure">
+<div class="container card">
+   <div class="img">
+      <img src="<?php echo base_url(); ?>assets/img/home.svg">
    </div>
-   <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/main.js"></script>
+   <div class="login-content">
+      <form class="user" method="POST" action="<?php echo base_url('login') ?>">
+         <h2 class="title">APLIKASI PENGGAJIAN</h2>
+         <?php echo $this->session->flashdata('pesan') ?>
+         <div class="input-div one">
+            <div class="i">
+               <i class="fas fa-user"></i>
+            </div>
+            <div class="div">
+               <h5>Username <?php echo form_error('username', '<div class="text-small text-danger"> </div>') ?></h5>
+               <input type="text" class="input" name="username">
+            </div>
+         </div>
+         <div class="input-div pass">
+            <div class="i">
+               <i class="fas fa-lock"></i>
+            </div>
+            <div class="div">
+               <h5>Password <?php echo form_error('password', '<div class="text-small text-danger"> </div>') ?></h5>
+               <input type="password" class="input" name="password">
+            </div>
+         </div>
+         <input type="submit" class="btn" value="Login">
+      </form>
+   </div>
+</div>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/main.js"></script>
 </body>
 
 </html>

@@ -62,14 +62,13 @@ if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) &&
 	<div class="alert alert-info">
 		Menampilkan Data Kehadiran Pegawai Bulan: <span class="font-weight-bold"><?php echo $bulan ?></span> Tahun: <span class="font-weight-bold"><?php echo $tahun ?></span>
 	</div>
-	<form method="POST">
+	<form method="POST"  style="text-align: right;">
 	<button class="btn btn-success mb-3" type="submit" name="submit" value="submit">Simpan</button>
 	<table class="table table-bordered table-striped">
 		<tr class="text-center">
 			<td>No</td>
 			<td>NIK</td>
 			<td>Nama Pegawai</td>
-			<td>Jenis Kalamin</td>
 			<td>Jabatan</td>
 			<td width="8%">Hadir</td>
 			<td width="8%">Lembur</td>
@@ -77,18 +76,13 @@ if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) &&
 		<?php $no = 1;foreach ($input_absensi as $a): ?>
 			<tr align="center">
 				<input type="hidden" name="bulan[]" class="form-control" value="<?php echo $bulantahun ?>">
-				<input type="hidden" name="nik[]" class="form-control" value="<?php echo $a->nik ?>">
-				<input type="hidden" name="nama_pegawai[]" class="form-control" value="<?php echo $a->nama_pegawai ?>">
-				<input type="hidden" name="jenis_kelamin[]" class="form-control" value="<?php echo $a->jenis_kelamin ?>">
-				<input type="hidden" name="nama_jabatan[]" class="form-control" value="<?php echo $a->nama_jabatan ?>">
-
+				<input type="hidden" name="user_id[]" class="form-control" value="<?php echo $a->user_id ?>">
 				<td><?php echo $no++ ?></td>
 				<td><?php echo $a->nik ?></td>
-				<td><?php echo $a->nama_pegawai ?></td>
-				<td><?php echo $a->jenis_kelamin ?></td>
-				<td><?php echo $a->nama_jabatan ?></td>
-				<td><input type="number" name="hadir[]" class="form-control" value="0"></td>
-				<td><input type="number" name="lembur[]" class="form-control" value="0"></td>
+				<td><?php echo $a->full_name ?></td>
+				<td><?php echo $a->name ?></td>
+				<td style="text-align: center;"><input type="number" name="hadir[]" class="form-control" value="0"></td>
+				<td style="text-align: center;"><input type="number" name="lembur[]" class="form-control" value="0"></td>
 		<?php endforeach;?>
 	</table><br></br><br></br>
 	</form>

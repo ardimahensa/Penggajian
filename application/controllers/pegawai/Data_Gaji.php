@@ -3,25 +3,25 @@
 class Data_Gaji extends CI_Controller
 {
 
-	public function __construct()
-	{
-		parent::__construct();
+    public function __construct()
+    {
+        parent::__construct();
 
-		if ($this->session->userdata('hak_akses') != '2') {
-			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+        if ($this->session->userdata('role_id') != '2') {
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
 				<strong>Anda Belum Login!</strong>
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 				</button>
 				</div>');
-			redirect('login');
-		}
-	}
-	public function index()
-	{
-		$data['title'] = "Data Gaji";
-		$nik = $this->session->userdata('nik');
-		$data['gaji'] = $this->db->query("SELECT data_pegawai.nama_pegawai,
+            redirect('login');
+        }
+    }
+    public function index()
+    {
+        $data['title'] = "Data Gaji";
+        $nik = $this->session->userdata('nik');
+        $data['gaji'] = $this->db->query("SELECT data_pegawai.nama_pegawai,
 		data_pegawai.nik,
 			data_jabatan.gaji_pokok,
 			data_jabatan.tj_transport,
@@ -34,16 +34,16 @@ class Data_Gaji extends CI_Controller
 			WHERE data_kehadiran.nik = '$nik'
 			ORDER BY data_kehadiran.bulan DESC")->result();
 
-		$this->load->view('template_pegawai/header', $data);
-		$this->load->view('template_pegawai/sidebar');
-		$this->load->view('pegawai/data_gaji', $data);
-		$this->load->view('template_pegawai/footer');
-	}
+        $this->load->view('template_pegawai/header', $data);
+        $this->load->view('template_pegawai/sidebar');
+        $this->load->view('pegawai/data_gaji', $data);
+        $this->load->view('template_pegawai/footer');
+    }
 
-	public function cetak_slip($id)
-	{
-		$data['title'] = 'Cetak Slip Gaji';
-		$data['print_slip'] = $this->db->query("SELECT data_pegawai.nik,
+    public function cetak_slip($id)
+    {
+        $data['title'] = 'Cetak Slip Gaji';
+        $data['print_slip'] = $this->db->query("SELECT data_pegawai.nik,
 		data_pegawai.nama_pegawai,
 		data_jabatan.nama_jabatan,
 		data_jabatan.gaji_pokok,
@@ -54,7 +54,7 @@ class Data_Gaji extends CI_Controller
 			INNER JOIN data_kehadiran ON data_kehadiran.nik=data_pegawai.nik
 			INNER JOIN data_jabatan ON data_jabatan.nama_jabatan=data_pegawai.jabatan
 			WHERE data_kehadiran.id_kehadiran = '$id'")->result();
-		$this->load->view('template_pegawai/header', $data);
-		$this->load->view('pegawai/cetak_slip_gaji', $data);
-	}
+        $this->load->view('template_pegawai/header', $data);
+        $this->load->view('pegawai/cetak_slip_gaji', $data);
+    }
 }
