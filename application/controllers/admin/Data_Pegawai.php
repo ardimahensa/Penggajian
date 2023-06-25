@@ -155,8 +155,8 @@ class Data_Pegawai extends CI_Controller
         positions.id,
         positions.name')
             ->from('users')
-            ->join('user_profiles', 'users.id=user_profiles.id')
-            ->join('positions', 'users.id=positions.id')
+            ->join('user_profiles', 'user_profiles.user_id=users.id')
+            ->join('positions', 'positions.id=users.position_id')
             ->where('users.id', $id)
             ->order_by('user_profiles.full_name', 'ASC')
             ->get()->result();
@@ -236,12 +236,12 @@ class Data_Pegawai extends CI_Controller
 
     public function _rules()
     {
-        $this->form_validation->set_rules('nik', 'NIK', 'required');
-        $this->form_validation->set_rules('full_name', 'Nama Pegawai', 'required');
-        $this->form_validation->set_rules('gender', 'Jenis Kelamin', 'required');
-        $this->form_validation->set_rules('tanggal_masuk', 'Tanggal Masuk', 'required');
-        $this->form_validation->set_rules('jabatan', 'Jabatan', 'required');
-        $this->form_validation->set_rules('employe_status', 'Employe Status', 'required');
+        $this->form_validation->set_rules('nik', 'nik', 'required');
+        $this->form_validation->set_rules('full_name', 'full_name', 'required');
+        $this->form_validation->set_rules('gender', 'gender', 'required');
+        $this->form_validation->set_rules('tanggal_masuk', 'tanggal_masuk', 'required');
+        $this->form_validation->set_rules('jabatan', 'jabatan', 'required');
+        $this->form_validation->set_rules('employe_status', 'employe_status', 'required');
     }
 
     public function delete_data($id)
