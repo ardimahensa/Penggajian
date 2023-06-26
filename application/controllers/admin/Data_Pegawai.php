@@ -144,6 +144,7 @@ class Data_Pegawai extends CI_Controller
         $data['posisi'] = $this->ModelPenggajian->positionslist('positions');
         $data['pegawai'] = $this->db->select('user_profiles.nik,
         user_profiles.full_name,
+        user_profiles.user_id,
         user_profiles.gender,
         user_profiles.foto,
         user_profiles.tanggal_masuk,
@@ -180,7 +181,7 @@ class Data_Pegawai extends CI_Controller
             if ($photo) {
                 $config['upload_path'] = './photo';
                 $config['allowed_types'] = 'jpg|jpeg|png|tiff';
-                $config['max_size'] = 2048;
+                $config['max_size'] = 5120;
                 $config['file_name'] = 'pegawai-' . date('ymd') . '-' . substr(md5(rand()), 0, 10);
                 $this->load->library('upload', $config);
                 if ($this->upload->do_upload('foto')) {
@@ -212,7 +213,7 @@ class Data_Pegawai extends CI_Controller
             $this->db->trans_start();
 
             $this->ModelPenggajian->update_data('users', $dataUser, $where);
-            $this->db->update('user_profiles', $dataProfile, ['user_id' => $id]);
+            $this->ModelPenggajian->update_data('user_profiles', $dataProfile, ['user_id' => $id]);
 
             $this->db->trans_complete();
 

@@ -17,7 +17,7 @@
 
 			<div class="form-group">
 				<label>NIK</label>
-				<input type="hidden" name="id_pegawai" class="form-control" value="<?php echo $p->id ?>">
+				<input type="hidden" name="id_pegawai" class="form-control" value="<?php echo $p->user_id ?>">
 				<input type="text" name="nik" class="form-control" value="<?php echo $p->nik ?>">
 				<?php echo form_error('nik', '<div class="text-small text-danger"> </div>') ?>
 			</div>
