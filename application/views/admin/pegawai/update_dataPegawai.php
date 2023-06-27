@@ -53,7 +53,7 @@
 			<div class="form-group">
 				<label>Jabatan</label>
 				<select name="jabatan" class="form-control">
-					<!-- <option value="<?php echo $p->name ?>"><?php echo $p->name ?></option> -->
+					<option value="<?php echo $p->position_id ?>"><?php echo $p->name ?></option>
 					<?php foreach ($posisi->result() as $j): ?>
 								<option value="<?php echo $j->id ?>"><?php echo $j->name ?></option>
 								<?php endforeach;?>

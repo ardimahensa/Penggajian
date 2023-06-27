@@ -34,7 +34,7 @@ foreach ($pegawai as $p): ?>
                 <td><?php echo $p->gender ?></td>
                 <td><?php echo $p->name ?></td>
                 <td><?php echo $p->tanggal_masuk ?></td>
-                <td><?php echo ($p->employe_status == 'tetap') ? 'Karyawan Tetap' : 'Karyawan Tidak Tetap8' ?></td>
+                <td><?php echo ($p->employe_status == 'tetap') ? 'Karyawan Tetap' : 'Karyawan Tidak Tetap' ?></td>
                 <td><img class="img-profile rounded-circle" src="<?php echo base_url() . 'photo/' . $p->foto ?>" style=" width:50px; height:50px;"></td>
                 <td>
                   <center>

@@ -30,17 +30,47 @@ class Data_Penggajian extends CI_Controller
             $tahun = date('Y');
             $bulantahun = $bulan . $tahun;
         }
-        $data['gaji'] = $this->db->query("SELECT data_pegawai.nik,
-		data_pegawai.nama_pegawai,
-			data_pegawai.jenis_kelamin,
-			data_jabatan.nama_jabatan,
-			data_jabatan.gaji_pokok,
-			data_jabatan.tj_transport,
-			data_jabatan.uang_makan FROM data_pegawai
-			INNER JOIN data_kehadiran ON data_kehadiran.nik=data_pegawai.nik
-			INNER JOIN data_jabatan ON data_jabatan.nama_jabatan=data_pegawai.jabatan
-			WHERE data_kehadiran.bulan='$bulantahun'
-			ORDER BY data_pegawai.nama_pegawai ASC")->result();
+        $data['gaji'] = $this->db->select('users.id,
+        users.position_id,
+        users.employe_status,
+        user_profiles.id,
+        user_profiles.user_id,
+        user_profiles.full_name,
+        user_profiles.nik,
+        user_profiles.tanggal_masuk,
+        user_profiles.gender,
+        user_profiles.foto,
+        positions.id,
+        positions.name,
+        positions.basic_salary,
+        positions.t_jabatan,
+        positions.t_transport,
+        positions.uang_makan,
+        positions.uang_lembur,
+        presences.id,
+        presences.user_id,
+        presences.month_year,
+        presences.hadir,
+        presences.lembur,')
+            ->from('users')
+            ->join('user_profiles', 'user_profiles.user_id=users.id')
+            ->join('presences', 'presences.user_id=users.id')
+            ->join('positions', 'positions.id=users.id')
+            ->where_not_in('SELECT * FROM presences WHERE bulan="$bulantahun"')
+            ->where('users.role_id !=', 1)
+            ->order_by('user_profiles.full_name', 'ASC')
+            ->get()->result();
+        // $data['gaji'] = $this->db->query("SELECT data_pegawai.nik,
+        // data_pegawai.nama_pegawai,
+        //     data_pegawai.jenis_kelamin,
+        //     data_jabatan.nama_jabatan,
+        //     data_jabatan.gaji_pokok,
+        //     data_jabatan.tj_transport,
+        //     data_jabatan.uang_makan FROM data_pegawai
+        //     INNER JOIN data_kehadiran ON data_kehadiran.nik=data_pegawai.nik
+        //     INNER JOIN data_jabatan ON data_jabatan.nama_jabatan=data_pegawai.jabatan
+        //     WHERE data_kehadiran.bulan='$bulantahun'
+        //     ORDER BY data_pegawai.nama_pegawai ASC")->result();
         $this->load->view('template_admin/header', $data);
         $this->load->view('template_admin/sidebar');
         $this->load->view('admin/gaji/data_gaji', $data);
@@ -60,17 +90,47 @@ class Data_Penggajian extends CI_Controller
             $tahun = date('Y');
             $bulantahun = $bulan . $tahun;
         }
-        $data['cetak_gaji'] = $this->db->query("SELECT data_pegawai.nik,
-		data_pegawai.nama_pegawai,
-			data_pegawai.jenis_kelamin,
-			data_jabatan.nama_jabatan,
-			data_jabatan.gaji_pokok,
-			data_jabatan.tj_transport,
-			data_jabatan.uang_makan FROM data_pegawai
-			INNER JOIN data_kehadiran ON data_kehadiran.nik=data_pegawai.nik
-			INNER JOIN data_jabatan ON data_jabatan.nama_jabatan=data_pegawai.jabatan
-			WHERE data_kehadiran.bulan='$bulantahun'
-			ORDER BY data_pegawai.nama_pegawai ASC")->result();
+        $data['cetak_gaji'] = $this->db->select('users.id,
+        users.position_id,
+        users.employe_status,
+        user_profiles.id,
+        user_profiles.user_id,
+        user_profiles.full_name,
+        user_profiles.nik,
+        user_profiles.tanggal_masuk,
+        user_profiles.gender,
+        user_profiles.foto,
+        positions.id,
+        positions.name,
+        positions.basic_salary,
+        positions.t_jabatan,
+        positions.t_transport,
+        positions.uang_makan,
+        positions.uang_lembur,
+        presences.id,
+        presences.user_id,
+        presences.month_year,
+        presences.hadir,
+        presences.lembur,')
+            ->from('users')
+            ->join('user_profiles', 'user_profiles.user_id=users.id')
+            ->join('presences', 'presences.user_id=users.id')
+            ->join('positions', 'positions.id=users.id')
+            ->where_not_in('SELECT * FROM presences WHERE bulan="$bulantahun"')
+            ->where('users.role_id !=', 1)
+            ->order_by('user_profiles.full_name', 'ASC')
+            ->get()->result();
+        // $data['cetak_gaji'] = $this->db->query("SELECT data_pegawai.nik,
+        // data_pegawai.nama_pegawai,
+        //     data_pegawai.jenis_kelamin,
+        //     data_jabatan.nama_jabatan,
+        //     data_jabatan.gaji_pokok,
+        //     data_jabatan.tj_transport,
+        //     data_jabatan.uang_makan FROM data_pegawai
+        //     INNER JOIN data_kehadiran ON data_kehadiran.nik=data_pegawai.nik
+        //     INNER JOIN data_jabatan ON data_jabatan.nama_jabatan=data_pegawai.jabatan
+        //     WHERE data_kehadiran.bulan='$bulantahun'
+        //     ORDER BY data_pegawai.nama_pegawai ASC")->result();
         $this->load->view('template_admin/header', $data);
         $this->load->view('admin/gaji/cetak_gaji', $data);
     }

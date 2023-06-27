@@ -64,8 +64,8 @@ class Data_Pegawai extends CI_Controller
         users.employe_status,
         user_profiles.foto')
             ->from('users')
-            ->join('positions', 'users.id=positions.id')
-            ->join('user_profiles', 'users.id=user_profiles.id')
+            ->join('positions', 'positions.id=users.position_id')
+            ->join('user_profiles', 'user_profiles.user_id=users.id')
             ->order_by('user_profiles.full_name', 'ASC')
             ->get()->result();
 
@@ -85,7 +85,7 @@ class Data_Pegawai extends CI_Controller
             if ($photo) {
                 $config['upload_path'] = './photo';
                 $config['allowed_types'] = 'jpg|jpeg|png|tiff';
-                $config['max_size'] = 2048;
+                $config['max_size'] = 5120;
                 $config['file_name'] = 'pegawai-' . date('ymd') . '-' . substr(md5(rand()), 0, 10);
                 $this->load->library('upload', $config);
                 if ($this->upload->do_upload('foto')) {
@@ -117,6 +117,8 @@ class Data_Pegawai extends CI_Controller
             }
 
             $this->db->insert('user_profiles', $dataProfile);
+            // var_dump($this->input->post(null));
+            // die;
 
             $this->db->trans_complete();
 
@@ -144,6 +146,7 @@ class Data_Pegawai extends CI_Controller
         $data['posisi'] = $this->ModelPenggajian->positionslist('positions');
         $data['pegawai'] = $this->db->select('user_profiles.nik,
         user_profiles.full_name,
+        user_profiles.id,
         user_profiles.user_id,
         user_profiles.gender,
         user_profiles.foto,
@@ -196,7 +199,7 @@ class Data_Pegawai extends CI_Controller
                 'full_name' => $this->input->post('full_name'),
                 'gender' => $this->input->post('gender'),
                 'tanggal_masuk' => $this->input->post('tanggal_masuk'),
-                'foto' => $photo,
+                'foto' => $photo ?? null,
             );
 
             $dataUser = [
@@ -247,8 +250,10 @@ class Data_Pegawai extends CI_Controller
 
     public function delete_data($id)
     {
-        $where = array('id' => $id);
-        $this->ModelPenggajian->delete_data($where, 'users');
+        $userId = array('id' => $id);
+        $userProfileId = array('user_id' => $id);
+        $this->ModelPenggajian->delete_data($userId, 'users');
+        $this->ModelPenggajian->delete_data($userProfileId, 'user_profiles');
         $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
 				<strong>Data berhasil dihapus!</strong>
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">

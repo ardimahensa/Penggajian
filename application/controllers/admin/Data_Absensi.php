@@ -46,6 +46,7 @@ class Data_Absensi extends CI_Controller
             ->join('positions', 'users.position_id=positions.id')
             ->join('user_profiles', 'users.id=user_profiles.user_id')
             ->where('presences.month_year', $bulantahun)
+            ->where('users.role_id !=', 1)
             ->order_by('user_profiles.user_id')
             ->get()->result();
 
@@ -100,14 +101,10 @@ class Data_Absensi extends CI_Controller
             ->join('positions', 'users.position_id=positions.id')
             ->join('user_profiles', 'users.id=user_profiles.user_id')
             ->where_not_in('SELECT * FROM presences WHERE bulan="$bulantahun"')
+            ->where('users.role_id !=', 1)
             ->order_by('user_profiles.full_name', 'ASC')
             ->get()->result();
 
-        // $this->db->query("SELECT data_pegawai.*,
-        // data_jabatan.nama_jabatan
-        // FROM data_pegawai
-        // INNER JOIN data_jabatan ON data_pegawai.jabatan = data_jabatan.nama_jabatan
-        // WHERE NOT EXISTS (SELECT * FROM data_kehadiran WHERE bulan='$bulantahun' AND data_pegawai.nik=data_kehadiran.nik) ORDER BY data_pegawai.nama_pegawai ASC")->result();
         $this->load->view('template_admin/header', $data);
         $this->load->view('template_admin/sidebar');
         $this->load->view('admin/absensi/tambah_dataAbsensi', $data);
