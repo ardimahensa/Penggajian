@@ -81,6 +81,8 @@ if ($jml_data > 0) {?>
 						<td class="text-center">Jabatan</td>
 						<td class="text-center">Hadir</td>
 						<td class="text-center">Lembur</td>
+						<td class="text-center">Uang Makan Lembur</td>
+						<td class="text-center">Uang Transport Lembur</td>
 		           </tr>
 		         </thead>
 		         <tbody>
@@ -90,8 +92,10 @@ if ($jml_data > 0) {?>
 						<td class="text-center"><?php echo $a->nik ?></td>
 						<td class="text-center"><?php echo $a->full_name ?></td>
 						<td class="text-center"><?php echo $a->name ?></td>
-						<td class="text-center"><?php echo $a->hadir ?></td>
-						<td class="text-center"><?php echo $a->lembur ?></td>
+						<td class="text-center"><?php echo $a->hadir ?> Hari</td>
+						<td class="text-center"><?php echo $a->lembur ?> Jam</td>
+						<td class="text-center"><?php echo $a->um_lembur ?></td>
+						<td class="text-center"><?php echo $a->ts_lembur ?></td>
 					</tr>
 		            </tr>
 		          <?php endforeach;?>

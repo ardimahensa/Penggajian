@@ -2,13 +2,13 @@
 <div class="container-fluid">
 	<div class="card mx-auto" style="width: 35%">
 		<div class="card-header bg-primary text-white text-center">
-			FIlter Slip Gaji Pegawai
+			Filter Slip Gaji Pegawai
 		</div>
 
-		<form method="POST" action="<?php echo base_url('admin/slip_gaji/cetak_slip_gaji')?>">
+		<form method="POST" action="<?php echo base_url('admin/slip_gaji/cetak_slip_gaji') ?>">
 		<div class="card-body">
 			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-3 col-form-label">Bulan</label>
+				<label form="inputPassword" class="col-sm-3 col-form-label">Bulan</label>
 				<div class="col-sm-9">
 					<select class="form-control" name="bulan">
 					    <option value=""> Pilih Bulan </option>
@@ -29,12 +29,12 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-3 col-form-label">Tahun</label>
+				<label form="inputPassword" class="col-sm-3 col-form-label">Tahun</label>
 				<div class="col-sm-9">
 					<select class="form-control" name="tahun">
 					    <option value=""> Pilih Tahun </option>
 					    <?php $tahun = date('Y');
-					    for($i=2020;$i<$tahun+5;$i++) { ?>
+for ($i = 2020; $i < $tahun + 5; $i++) {?>
 					    <option value="<?php echo $i ?>"><?php echo $i ?></option>
 					<?php }?>
 					</select>
@@ -42,13 +42,13 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-3 col-form-label">Nama Pegawai</label>
+				<label form="inputPassword" class="col-sm-3 col-form-label">Nama Pegawai</label>
 				<div class="col-sm-9">
-					<select class="form-control" name="nama_pegawai">
+					<select class="form-control" name="pegawai">
 					    <option value=""> Pilih Pegawai </option>
-					    <?php foreach($pegawai as $p) : ?>
-					    	<option value="<?php echo $p->nama_pegawai ?>"><?php echo $p->nama_pegawai ?></option>
-					    <?php endforeach; ?>
+					    <?php foreach ($pegawai as $p): ?>
+					    	<option value="<?php echo $p->user_id ?>"><?php echo $p->full_name ?></option>
+					    <?php endforeach;?>
 					</select>
 				</div>
 			</div>

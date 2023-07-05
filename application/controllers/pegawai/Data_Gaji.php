@@ -19,20 +19,39 @@ class Data_Gaji extends CI_Controller
     }
     public function index()
     {
+
         $data['title'] = "Data Gaji";
-        $nik = $this->session->userdata('nik');
-        $data['gaji'] = $this->db->query("SELECT data_pegawai.nama_pegawai,
-		data_pegawai.nik,
-			data_jabatan.gaji_pokok,
-			data_jabatan.tj_transport,
-			data_jabatan.uang_makan,
-			data_kehadiran.bulan,
-			data_kehadiran.id_kehadiran
-			FROM data_pegawai
-			INNER JOIN data_kehadiran ON data_kehadiran.nik = data_pegawai.nik
-			INNER JOIN data_jabatan ON data_jabatan.nama_jabatan = data_pegawai.jabatan
-			WHERE data_kehadiran.nik = '$nik'
-			ORDER BY data_kehadiran.bulan DESC")->result();
+        $id = $this->session->userdata('id');
+        $data['gaji'] = $this->db->select('users.id,
+        users.position_id,
+        users.employe_status,
+        user_profiles.id,
+        user_profiles.user_id,
+        user_profiles.full_name,
+        user_profiles.nik,
+        user_profiles.tanggal_masuk,
+        user_profiles.gender,
+        user_profiles.foto,
+        positions.id,
+        positions.name,
+        positions.basic_salary,
+        positions.t_jabatan,
+        positions.t_transport,
+        positions.uang_makan,
+        positions.uang_lembur,
+        presences.id,
+        presences.user_id,
+        presences.month_year,
+        presences.hadir,
+        presences.lembur,
+        presences.um_lembur,
+        presences.ts_lembur,')
+            ->from('users')
+            ->join('presences', 'presences.user_id=users.id')
+            ->join('positions', 'positions.id=users.position_id')
+            ->join('user_profiles', 'user_profiles.user_id=users.id')
+            ->where('users.id', $id)
+            ->get()->result();
 
         $this->load->view('template_pegawai/header', $data);
         $this->load->view('template_pegawai/sidebar');
@@ -43,17 +62,38 @@ class Data_Gaji extends CI_Controller
     public function cetak_slip($id)
     {
         $data['title'] = 'Cetak Slip Gaji';
-        $data['print_slip'] = $this->db->query("SELECT data_pegawai.nik,
-		data_pegawai.nama_pegawai,
-		data_jabatan.nama_jabatan,
-		data_jabatan.gaji_pokok,
-		data_jabatan.tj_transport,
-		data_jabatan.uang_makan,
-		data_kehadiran.bulan
-			FROM data_pegawai
-			INNER JOIN data_kehadiran ON data_kehadiran.nik=data_pegawai.nik
-			INNER JOIN data_jabatan ON data_jabatan.nama_jabatan=data_pegawai.jabatan
-			WHERE data_kehadiran.id_kehadiran = '$id'")->result();
+        $data['print_slip'] = $this->db->select('users.id,
+        users.position_id,
+        users.employe_status,
+        user_profiles.id,
+        user_profiles.user_id,
+        user_profiles.full_name,
+        user_profiles.nik,
+        user_profiles.tanggal_masuk,
+        user_profiles.gender,
+        user_profiles.foto,
+        positions.id,
+        positions.name,
+        positions.basic_salary,
+        positions.t_jabatan,
+        positions.t_transport,
+        positions.uang_makan,
+        positions.uang_lembur,
+        presences.id,
+        presences.user_id,
+        presences.month_year,
+        presences.hadir,
+        presences.lembur,
+        presences.um_lembur,
+        presences.ts_lembur')
+            ->from('users')
+            ->join('presences', 'presences.user_id=users.id')
+            ->join('positions', 'positions.id=users.position_id')
+            ->join('user_profiles', 'user_profiles.user_id=users.id')
+            ->where('presences.id', $id)
+            ->get()->result();
+        // var_dump($data);
+        // die;
         $this->load->view('template_pegawai/header', $data);
         $this->load->view('pegawai/cetak_slip_gaji', $data);
     }

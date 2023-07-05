@@ -14,7 +14,6 @@
 
 		<?php foreach ($pegawai as $p): ?>
 		<form method="POST" action="<?php echo base_url('admin/data_pegawai/update_data_aksi') ?>" enctype="multipart/form-data">
-
 			<div class="form-group">
 				<label>NIK</label>
 				<input type="hidden" name="id_pegawai" class="form-control" value="<?php echo $p->user_id ?>">
@@ -36,7 +35,7 @@
 
 			<div class="form-group">
 				<label>Password</label>
-				<input type="password" name="password" class="form-control" value="<?php echo md5($p->password) ?>">
+				<input type="password" name="password" class="form-control" value="<?=$p->password?>" required>
 				<?php echo form_error('password', '<div class="text-small text-danger"> </div>') ?>
 			</div>
 
@@ -79,6 +78,7 @@
 			<div class="form-group">
 				<label>Photo</label>
 				<input type="file" name="foto" class="form-control">
+				<input type="hidden" name="old_file" value="<?php echo $p->foto ?>"></input>
 			</div>
 
 			<button type="submit" class="btn btn-success" >Simpan</button>

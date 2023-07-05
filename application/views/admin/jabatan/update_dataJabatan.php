@@ -22,20 +22,20 @@
 
 				<div class="form-group">
 					<label>Gaji Pokok</label>
-					<input type="number" name="gaji_pokok" class="form-control" value="<?php echo $j->basic_salary ?>">
-					<?php echo form_error('gaji_pokok', '<div class="text-small text-danger"> </div>') ?>
+					<input type="number" name="basic_salary" class="form-control" value="<?php echo $j->basic_salary ?>">
+					<?php echo form_error('basic_salary', '<div class="text-small text-danger"> </div>') ?>
 				</div>
 
 				<div class="form-group">
 					<label>Tunjangan Jabatan</label>
-					<input type="number" name="tj_jabatan" class="form-control" value="<?php echo $j->t_jabatan ?>">
-					<?php echo form_error('tj_jabatan', '<div class="text-small text-danger"> </div>') ?>
+					<input type="number" name="t_jabatan" class="form-control" value="<?php echo $j->t_jabatan ?>">
+					<?php echo form_error('t_jabatan', '<div class="text-small text-danger"> </div>') ?>
 				</div>
 
 				<div class="form-group">
 					<label>Tunjangan Transport</label>
-					<input type="number" name="tj_transport" class="form-control" value="<?php echo $j->t_transport ?>">
-					<?php echo form_error('tj_transport', '<div class="text-small text-danger"> </div>') ?>
+					<input type="number" name="t_transport" class="form-control" value="<?php echo $j->t_transport ?>">
+					<?php echo form_error('t_transport', '<div class="text-small text-danger"> </div>') ?>
 				</div>
 
 				<div class="form-group">

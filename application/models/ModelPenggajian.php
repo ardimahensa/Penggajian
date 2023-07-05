@@ -55,4 +55,10 @@ class ModelPenggajian extends CI_model
         $positionslist = $this->db->get('positions');
         return $positionslist;
     }
+
+    public function userProfileList()
+    {
+        $userProfileList = $this->db->get('user_profiles');
+        return $userProfileList;
+    }
 }

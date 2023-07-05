@@ -2,7 +2,7 @@
 <div class="container-fluid">
 	<div class="card mx-auto" style="width: 35%">
 		<div class="card-header bg-primary text-white text-center">
-			FIlter Laporan Gaji Pegawai
+			Filter Laporan Gaji Pegawai
 		</div>
 
 		<form method="get" action="<?php echo base_url('admin/laporan_gaji/cetak_laporan_gaji') ?>">

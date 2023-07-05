@@ -24,16 +24,17 @@ class Data_Pegawai extends CI_Controller
         $data['pegawai'] = $this->ModelPenggajian->get_data('users')->result();
         $data['pegawai'] = $this->db->select('user_profiles.nik,
         user_profiles.full_name,
+        user_profiles.tanggal_masuk,
+        user_profiles.gender,
+        user_profiles.foto,
         users.username,
         users.password,
-        user_profiles.gender,
         positions.id,
         positions.name,
         users.id,
         users.position_id,
-        user_profiles.tanggal_masuk,
         users.employe_status,
-        user_profiles.foto')
+        ')
             ->from('users')
             ->join('positions', 'users.position_id=positions.id')
             ->join('user_profiles', 'users.id=user_profiles.user_id')
@@ -117,8 +118,6 @@ class Data_Pegawai extends CI_Controller
             }
 
             $this->db->insert('user_profiles', $dataProfile);
-            // var_dump($this->input->post(null));
-            // die;
 
             $this->db->trans_complete();
 
@@ -165,6 +164,9 @@ class Data_Pegawai extends CI_Controller
             ->order_by('user_profiles.full_name', 'ASC')
             ->get()->result();
 
+        // var_dump($data['pegawai']);
+        // die;
+
         $this->load->view('template_admin/header', $data);
         $this->load->view('template_admin/sidebar');
         $this->load->view('admin/pegawai/update_dataPegawai', $data);
@@ -179,7 +181,6 @@ class Data_Pegawai extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->update_data($id);
         } else {
-
             $photo = $_FILES['foto']['name'];
             if ($photo) {
                 $config['upload_path'] = './photo';
@@ -192,6 +193,8 @@ class Data_Pegawai extends CI_Controller
                 } else {
                     echo $this->upload->display_errors();
                 }
+            } else {
+                $photo = $this->input->post('old_file') ?? null;
             }
 
             $dataProfile = array(
@@ -202,9 +205,11 @@ class Data_Pegawai extends CI_Controller
                 'foto' => $photo ?? null,
             );
 
+            $password = (preg_match('/^[a-f0-9]{32}$/', $this->input->post('password'))) ? $this->input->post('password') : md5($this->input->post('password'));
+
             $dataUser = [
                 'username' => $this->input->post('username'),
-                'password' => md5($this->input->post('password')),
+                'password' => $password,
                 'position_id' => $this->input->post('jabatan'),
                 'employe_status' => $this->input->post('employe_status'),
             ];

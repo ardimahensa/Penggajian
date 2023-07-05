@@ -62,6 +62,8 @@ class Laporan_Gaji extends CI_Controller
         presences.month_year,
         presences.hadir,
         presences.lembur,
+        presences.um_lembur,
+        presences.ts_lembur,
         (positions.uang_makan * presences.hadir) AS um,
         (positions.uang_lembur * presences.hadir) AS ul,
         (positions.t_transport * presences.hadir) AS ts,

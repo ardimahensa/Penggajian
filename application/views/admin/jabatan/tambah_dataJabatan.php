@@ -15,7 +15,7 @@
 
 			<div class="form-group">
 				<label>Nama Jabatan</label>
-				<input type="text" name="name" class="form-control">
+				<input type="text" name="nama_jabatan" class="form-control">
 				<?php echo form_error('name', '<div class="text-small text-danger"> </div>') ?>
 			</div>
 

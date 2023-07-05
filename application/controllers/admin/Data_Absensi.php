@@ -35,6 +35,8 @@ class Data_Absensi extends CI_Controller
         $data['presences'] = $this->db->select('presences.month_year,
         presences.hadir,
         presences.lembur,
+        presences.um_lembur,
+        presences.ts_lembur,
         users.id,
         user_profiles.full_name,
         user_profiles.user_id,
@@ -69,6 +71,8 @@ class Data_Absensi extends CI_Controller
                         'month_year' => $post['bulan'][$key],
                         'hadir' => $post['hadir'][$key],
                         'lembur' => $post['lembur'][$key],
+                        'um_lembur' => $post['umLembur'][$key],
+                        'ts_lembur' => $post['tsLembur'][$key],
                     );
                 }
             }

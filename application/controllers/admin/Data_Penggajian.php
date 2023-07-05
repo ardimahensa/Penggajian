@@ -60,17 +60,6 @@ class Data_Penggajian extends CI_Controller
             ->where('users.role_id !=', 1)
             ->order_by('user_profiles.full_name', 'ASC')
             ->get()->result();
-        // $data['gaji'] = $this->db->query("SELECT data_pegawai.nik,
-        // data_pegawai.nama_pegawai,
-        //     data_pegawai.jenis_kelamin,
-        //     data_jabatan.nama_jabatan,
-        //     data_jabatan.gaji_pokok,
-        //     data_jabatan.tj_transport,
-        //     data_jabatan.uang_makan FROM data_pegawai
-        //     INNER JOIN data_kehadiran ON data_kehadiran.nik=data_pegawai.nik
-        //     INNER JOIN data_jabatan ON data_jabatan.nama_jabatan=data_pegawai.jabatan
-        //     WHERE data_kehadiran.bulan='$bulantahun'
-        //     ORDER BY data_pegawai.nama_pegawai ASC")->result();
         $this->load->view('template_admin/header', $data);
         $this->load->view('template_admin/sidebar');
         $this->load->view('admin/gaji/data_gaji', $data);
@@ -120,17 +109,6 @@ class Data_Penggajian extends CI_Controller
             ->where('users.role_id !=', 1)
             ->order_by('user_profiles.full_name', 'ASC')
             ->get()->result();
-        // $data['cetak_gaji'] = $this->db->query("SELECT data_pegawai.nik,
-        // data_pegawai.nama_pegawai,
-        //     data_pegawai.jenis_kelamin,
-        //     data_jabatan.nama_jabatan,
-        //     data_jabatan.gaji_pokok,
-        //     data_jabatan.tj_transport,
-        //     data_jabatan.uang_makan FROM data_pegawai
-        //     INNER JOIN data_kehadiran ON data_kehadiran.nik=data_pegawai.nik
-        //     INNER JOIN data_jabatan ON data_jabatan.nama_jabatan=data_pegawai.jabatan
-        //     WHERE data_kehadiran.bulan='$bulantahun'
-        //     ORDER BY data_pegawai.nama_pegawai ASC")->result();
         $this->load->view('template_admin/header', $data);
         $this->load->view('admin/gaji/cetak_gaji', $data);
     }

@@ -32,6 +32,7 @@ class Data_Jabatan extends CI_Controller
         positions.uang_lembur,
         positions.uang_makan')
             ->from('positions')
+            ->order_by('positions.name', 'ASC')
             ->get()->result();
 
         $this->load->view('template_admin/header', $data);
@@ -53,12 +54,14 @@ class Data_Jabatan extends CI_Controller
     public function tambah_data_aksi()
     {
         $this->_rules();
+        // var_dump($this->input->post(null));
+        // die;
 
         if ($this->form_validation->run() == false) {
             $this->tambah_data();
         } else {
             $data = array(
-                'name' => $this->input->post('name'),
+                'name' => $this->input->post('nama_jabatan'),
                 'basic_salary' => $this->input->post('basic_salary'),
                 't_jabatan' => $this->input->post('t_jabatan'),
                 't_transport' => $this->input->post('t_transport'),
@@ -99,6 +102,7 @@ class Data_Jabatan extends CI_Controller
 
     public function update_data_aksi()
     {
+
         $this->_rules();
         $id = $this->input->post('id_jabatan');
         if ($this->form_validation->run() == false) {
@@ -106,9 +110,9 @@ class Data_Jabatan extends CI_Controller
         } else {
             $data = [
                 'name' => $this->input->post('nama_jabatan'),
-                'basic_salary' => $this->input->post('gaji_pokok'),
-                't_jabatan' => $this->input->post('tj_jabatan'),
-                't_transport' => $this->input->post('tj_transport'),
+                'basic_salary' => $this->input->post('basic_salary'),
+                't_jabatan' => $this->input->post('t_jabatan'),
+                't_transport' => $this->input->post('t_transport'),
                 'uang_makan' => $this->input->post('uang_makan'),
                 'uang_lembur' => $this->input->post('uang_lembur'),
             ];
@@ -130,9 +134,9 @@ class Data_Jabatan extends CI_Controller
     public function _rules()
     {
         $this->form_validation->set_rules('nama_jabatan', 'Nama Jabatan', 'required');
-        $this->form_validation->set_rules('gaji_pokok', 'Gaji Pokok', 'required');
-        $this->form_validation->set_rules('tj_jabatan', 'Tunjangan Jabatan', 'required');
-        $this->form_validation->set_rules('tj_transport', 'Tunjangan Transport', 'required');
+        $this->form_validation->set_rules('basic_salary', 'Gaji Pokok', 'required');
+        $this->form_validation->set_rules('t_jabatan', 'Tunjangan Jabatan', 'required');
+        $this->form_validation->set_rules('t_transport', 'Tunjangan Transport', 'required');
         $this->form_validation->set_rules('uang_makan', 'Uang Makan', 'required');
         $this->form_validation->set_rules('uang_lembur', 'Uang Lembur', 'required');
 

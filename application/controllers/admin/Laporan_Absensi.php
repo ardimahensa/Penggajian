@@ -41,7 +41,41 @@ class Laporan_Absensi extends CI_Controller
             $tahun = date('Y');
             $bulantahun = $bulan . $tahun;
         }
-        $data['lap_kehadiran'] = $this->db->query("SELECT * FROM data_kehadiran WHERE bulan='$bulantahun' ORDER BY nama_pegawai ASC")->result();
+        $data['lap_kehadiran'] = $this->db->select('users.id,
+        users.position_id,
+        users.employe_status,
+        user_profiles.id,
+        user_profiles.user_id,
+        user_profiles.full_name,
+        user_profiles.nik,
+        user_profiles.tanggal_masuk,
+        user_profiles.gender,
+        user_profiles.foto,
+        positions.id,
+        positions.name,
+        positions.basic_salary,
+        positions.t_jabatan,
+        positions.t_transport,
+        positions.uang_makan,
+        positions.uang_lembur,
+        presences.id,
+        presences.user_id,
+        presences.month_year,
+        presences.hadir,
+        presences.lembur,
+        presences.um_lembur,
+        presences.ts_lembur,
+        (positions.uang_makan * presences.hadir) AS um,
+        (positions.uang_lembur * presences.hadir) AS ul,
+        (positions.t_transport * presences.hadir) AS ts,
+        ROUND(positions.basic_salary + positions.t_jabatan + (positions.uang_makan * presences.hadir) + (positions.uang_lembur * presences.hadir) + (positions.t_transport * presences.hadir),2) AS total')
+            ->from('users')
+            ->join('user_profiles', 'user_profiles.user_id=users.id')
+            ->join('presences', 'presences.user_id=users.id')
+            ->join('positions', 'positions.id=users.position_id')
+            ->where('month_year ', $bulantahun)
+            ->order_by('user_profiles.full_name', 'ASC')
+            ->get()->result();
         $this->load->view('template_admin/header', $data);
         $this->load->view('admin/absensi/cetak_absensi', $data);
     }

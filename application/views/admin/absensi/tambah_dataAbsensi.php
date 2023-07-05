@@ -70,8 +70,10 @@ if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) &&
 			<td>NIK</td>
 			<td>Nama Pegawai</td>
 			<td>Jabatan</td>
-			<td width="8%">Hadir</td>
-			<td width="8%">Lembur</td>
+			<td width="8%">Hadir (Hari)</td>
+			<td width="8%">Lembur (Jam)</td>
+			<td width="8%">Uang Makan Lembur</td>
+			<td width="8%">Uang Transport Lembur</td>
 		</tr>
 		<?php $no = 1;foreach ($input_absensi as $a): ?>
 			<tr align="center">
@@ -83,6 +85,8 @@ if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) &&
 				<td><?php echo $a->name ?></td>
 				<td style="text-align: center;"><input type="number" name="hadir[]" class="form-control" value="0"></td>
 				<td style="text-align: center;"><input type="number" name="lembur[]" class="form-control" value="0"></td>
+				<td style="text-align: center;"><input type="number" name="umLembur[]" class="form-control" value="0"></td>
+				<td style="text-align: center;"><input type="number" name="tslembur[]" class="form-control" value="0"></td>
 		<?php endforeach;?>
 	</table><br></br><br></br>
 	</form>

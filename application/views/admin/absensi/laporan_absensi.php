@@ -5,10 +5,10 @@
 			FIlter Laporan Absensi Pegawai
 		</div>
 
-		<form method="POST" action="<?php echo base_url('admin/laporan_absensi/cetak_laporan_absensi') ?>">
+		<form method="get" action="<?php echo base_url('admin/laporan_absensi/cetak_laporan_absensi') ?>">
 			<div class="card-body">
 				<div class="form-group row">
-					<label for="inputPassword" class="col-sm-3 col-form-label">Bulan</label>
+					<label form="inputPassword" class="col-sm-3 col-form-label">Bulan</label>
 					<div class="col-sm-9">
 						<select class="form-control" name="bulan">
 							<option value=""> Pilih Bulan </option>
@@ -29,14 +29,14 @@
 				</div>
 
 				<div class="form-group row">
-					<label for="inputPassword" class="col-sm-3 col-form-label">Tahun</label>
+					<label form="inputPassword" class="col-sm-3 col-form-label">Tahun</label>
 					<div class="col-sm-9">
 						<select class="form-control" name="tahun">
 							<option value=""> Pilih Tahun </option>
 							<?php $tahun = date('Y');
-							for ($i = 2020; $i < $tahun + 10; $i++) { ?>
+for ($i = 2020; $i < $tahun + 10; $i++) {?>
 								<option value="<?php echo $i ?>"><?php echo $i ?></option>
-							<?php } ?>
+							<?php }?>
 						</select>
 					</div>
 				</div>
