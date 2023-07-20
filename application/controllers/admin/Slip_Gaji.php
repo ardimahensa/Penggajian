@@ -3,51 +3,118 @@
 class Slip_Gaji extends CI_Controller
 {
 
-	public function __construct()
-	{
-		parent::__construct();
+    public function __construct()
+    {
+        parent::__construct();
 
-		if ($this->session->userdata('hak_akses') != '1') {
-			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+        if ($this->session->userdata('role_id') != '1') {
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
 				<strong>Anda Belum Login!</strong>
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 				</button>
 				</div>');
-			redirect('login');
-		}
-	}
+            redirect('login');
+        }
+    }
 
-	public function index()
-	{
-		$data['title'] = "Slip Gaji Pegawai";
-		$data['pegawai'] = $this->ModelPenggajian->get_data('data_pegawai')->result();
+    public function index()
+    {
+        $data['title'] = "Slip Gaji Pegawai";
+        $data['pegawai'] = $this->ModelPenggajian->get_data('users')->result();
+        $data['pegawai'] = $this->ModelPenggajian->userProfileList('user_profiles')->result();
+        $data['pegawai'] = $this->db->select('users.id,
+        users.position_id,
+        users.employe_status,
+        user_profiles.id,
+        user_profiles.user_id,
+        user_profiles.full_name,
+        user_profiles.nik,
+        user_profiles.tanggal_masuk,
+        user_profiles.gender,
+        user_profiles.foto,
+        positions.id,
+        positions.name,
+        positions.basic_salary,
+        positions.t_jabatan,
+        positions.t_transport,
+        positions.uang_makan,
+        positions.uang_lembur,
+        presences.id,
+        presences.user_id,
+        presences.month_year,
+        presences.hadir,
+        presences.lembur,
+        (positions.uang_makan * presences.hadir) AS um,
+        (positions.uang_lembur * presences.hadir) AS ul,
+        (positions.t_transport * presences.hadir) AS ts,
+        ROUND(positions.basic_salary + positions.t_jabatan + (positions.uang_makan * presences.hadir) + (positions.uang_lembur * presences.hadir) + (positions.t_transport * presences.hadir),2) AS total')
+            ->from('users')
+            ->join('user_profiles', 'user_profiles.user_id=users.id')
+            ->join('presences', 'presences.user_id=users.id')
+            ->join('positions', 'positions.id=users.position_id')
+            ->get()->result();
 
-		$this->load->view('template_admin/header', $data);
-		$this->load->view('template_admin/sidebar');
-		$this->load->view('admin/gaji/slip_gaji', $data);
-		$this->load->view('template_admin/footer');
-	}
+        $this->load->view('template_admin/header', $data);
+        $this->load->view('template_admin/sidebar');
+        $this->load->view('admin/gaji/slip_gaji', $data);
+        $this->load->view('template_admin/footer');
+    }
 
-	public function cetak_slip_gaji()
-	{
+    public function cetak_slip_gaji()
+    {
+        if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) && $_GET['tahun'] != '')) {
+            $bulan = $_GET['bulan'];
+            $tahun = $_GET['tahun'];
+            $bulantahun = $bulan . $tahun;
+        } else {
+            $bulan = date('m');
+            $tahun = date('Y');
+            $bulantahun = $bulan . $tahun;
+        }
 
-		$data['title'] = "Cetak Laporan Absensi Pegawai";
-		$nama = $this->input->post('nama_pegawai');
-		$bulan = $this->input->post('bulan');
-		$tahun = $this->input->post('tahun');
-		$bulantahun = $bulan . $tahun;
+        $data['title'] = "Cetak Laporan Absensi Pegawai";
+        $nama = $this->input->post('pegawai');
+        $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
+        $bulantahun = $bulan . $tahun;
 
-		$data['print_slip'] = $this->db->query("SELECT data_pegawai.nik,
-	data_pegawai.nama_pegawai,
-	data_jabatan.nama_jabatan,
-	data_jabatan.gaji_pokok,
-	data_jabatan.tj_transport,
-	data_jabatan.uang_makan,
-	data_kehadiran.bulan FROM data_pegawai INNER JOIN data_kehadiran ON data_kehadiran.nik=data_pegawai.nik
-		INNER JOIN data_jabatan ON data_jabatan.nama_jabatan=data_pegawai.jabatan
-		WHERE data_kehadiran.bulan='$bulantahun' AND data_kehadiran.nama_pegawai='$nama'")->result();
-		$this->load->view('template_admin/header', $data);
-		$this->load->view('admin/gaji/cetak_slip_gaji', $data);
-	}
+        $data['print_slip'] = $this->db->select('users.id,
+        users.position_id,
+        users.employe_status,
+        user_profiles.id,
+        user_profiles.user_id,
+        user_profiles.full_name,
+        user_profiles.nik,
+        user_profiles.tanggal_masuk,
+        user_profiles.gender,
+        user_profiles.foto,
+        positions.id,
+        positions.name,
+        positions.basic_salary,
+        positions.t_jabatan,
+        positions.t_transport,
+        positions.uang_makan,
+        positions.uang_lembur,
+        presences.id,
+        presences.user_id,
+        presences.month_year,
+        presences.hadir,
+        presences.lembur,
+        presences.um_lembur,
+        presences.ts_lembur,
+        (positions.uang_makan * presences.hadir) AS um,
+        (positions.uang_lembur * presences.hadir) AS ul,
+        (positions.t_transport * presences.hadir) AS ts,
+        ROUND(positions.basic_salary + positions.t_jabatan + (positions.uang_makan * presences.hadir) + (positions.uang_lembur * presences.hadir) + (positions.t_transport * presences.hadir),2) AS total')
+            ->from('users')
+            ->join('user_profiles', 'user_profiles.user_id=users.id')
+            ->join('presences', 'presences.user_id=users.id')
+            ->join('positions', 'positions.id=users.position_id')
+            ->where('month_year ', $bulantahun)
+            ->where('user_profiles.user_id', $nama)
+            ->get()->result();
+        $this->load->view('template_admin/header', $data);
+        $this->load->view('admin/gaji/cetak_slip_gaji', $data);
+    }
 }

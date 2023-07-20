@@ -26,24 +26,24 @@
           </thead>
           <tbody class="flex-wrap">
             <?php $no = 1;
-            foreach ($pegawai as $p) : ?>
+foreach ($pegawai as $p): ?>
               <tr align="center">
                 <td><?php echo $no++ ?></td>
                 <td><?php echo $p->nik ?></td>
-                <td><?php echo $p->nama_pegawai ?></td>
-                <td><?php echo $p->jenis_kelamin ?></td>
-                <td><?php echo $p->jabatan ?></td>
+                <td><?php echo $p->full_name ?></td>
+                <td><?php echo $p->gender ?></td>
+                <td><?php echo $p->name ?></td>
                 <td><?php echo $p->tanggal_masuk ?></td>
-                <td><?php echo $p->status ?></td>
-                <td><img class="img-profile rounded-circle" src="<?php echo base_url() . 'photo/' . $p->photo ?>" style=" width:50px; height:50px;"></td>
+                <td><?php echo ($p->employe_status == 'tetap') ? 'Karyawan Tetap' : 'Karyawan Tidak Tetap' ?></td>
+                <td><img class="img-profile rounded-circle" src="<?php echo base_url() . 'photo/' . $p->foto ?>" style=" width:50px; height:50px;"></td>
                 <td>
                   <center>
-                    <a class="btn btn-sm btn-info" href="<?php echo base_url('admin/data_pegawai/update_data/' . $p->id_pegawai) ?>"><i class="fas fa-edit"></i></a>
-                    <a onclick="return confirm('Yakin Hapus?')" class="btn btn-sm btn-danger" href="<?php echo base_url('admin/data_pegawai/delete_data/' . $p->id_pegawai) ?>"><i class="fas fa-trash"></i></a>
+                    <a class="btn btn-sm btn-info" href="<?php echo base_url('admin/data_pegawai/update_data/' . $p->id) ?>"><i class="fas fa-edit"></i></a>
+                    <a onclick="return confirm('Yakin Hapus?')" class="btn btn-sm btn-danger" href="<?php echo base_url('admin/data_pegawai/delete_data/' . $p->id) ?>"><i class="fas fa-trash"></i></a>
                   </center>
                 </td>
               </tr>
-            <?php endforeach; ?>
+            <?php endforeach;?>
           </tbody>
         </table>
       </div>

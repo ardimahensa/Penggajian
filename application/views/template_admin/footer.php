@@ -35,8 +35,8 @@
     data: {
       labels: ["Karyawan Tetap", "Karyawan Tidak Tetap"],
       datasets: [{
-        data: [<?php echo $this->db->query("select status from data_pegawai where status='Karyawan Tetap'")->num_rows(); ?>,
-          <?php echo $this->db->query("select status from data_pegawai where status='Karyawan Tidak Tetap'")->num_rows(); ?>,
+        data: [<?php echo $this->db->query("select employe_status from users where employe_status='tetap'")->num_rows(); ?>,
+          <?php echo $this->db->query("select employe_status from users where employe_status='tidak tetap'")->num_rows(); ?>,
         ],
         backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#dddfeb'],
         hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#dddfeb'],
@@ -74,8 +74,8 @@
         label: "Berdasarkan Jenis Kelamin",
         backgroundColor: 'rgb(23, 125, 255)',
         borderColor: 'rgb(23, 125, 255)',
-        data: [<?php echo $this->db->query("select jenis_kelamin from data_pegawai where jenis_kelamin='Laki-laki'")->num_rows(); ?>,
-          <?php echo $this->db->query("select jenis_kelamin from data_pegawai where jenis_kelamin='Perempuan'")->num_rows(); ?>,
+        data: [<?php echo $this->db->query("select gender from user_profiles where gender='Laki-Laki'")->num_rows(); ?>,
+          <?php echo $this->db->query("select gender from user_profiles where gender='Perempuan'")->num_rows(); ?>,
         ],
       }],
     },

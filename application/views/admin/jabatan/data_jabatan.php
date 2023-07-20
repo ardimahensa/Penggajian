@@ -25,23 +25,23 @@
           </thead>
           <tbody>
             <?php $no = 1;
-            foreach ($jabatan as $j) : ?>
+foreach ($jabatan as $j): ?>
               <tr>
                 <td class="text-center"><?php echo $no++ ?></td>
-                <td class="text-center"><?php echo $j->nama_jabatan ?></td>
-                <td class="text-center">Rp. <?php echo number_format($j->gaji_pokok, 0, ',', '.') ?></td>
-                <td class="text-center">Rp. <?php echo number_format($j->tj_jabatan, 0, ',', '.') ?></td>
-                <td class="text-center">Rp. <?php echo number_format($j->tj_transport, 0, ',', '.') ?></td>
+                <td class="text-center"><?php echo $j->name ?></td>
+                <td class="text-center">Rp. <?php echo number_format($j->basic_salary, 0, ',', '.') ?></td>
+                <td class="text-center">Rp. <?php echo number_format($j->t_jabatan, 0, ',', '.') ?></td>
+                <td class="text-center">Rp. <?php echo number_format($j->t_transport, 0, ',', '.') ?></td>
                 <td class="text-center">Rp. <?php echo number_format($j->uang_makan, 0, ',', '.') ?></td>
                 <td class="text-center">Rp. <?php echo number_format($j->uang_lembur, 0, ',', '.') ?></td>
                 <td>
                   <center>
-                    <a class="btn btn-sm btn-info" href="<?php echo base_url('admin/data_jabatan/update_data/' . $j->id_jabatan) ?>"><i class="fas fa-edit"></i></a>
-                    <a onclick="return confirm('Yakin Hapus?')" class="btn btn-sm btn-danger" href="<?php echo base_url('admin/data_jabatan/delete_data/' . $j->id_jabatan) ?>"><i class="fas fa-trash"></i></a>
+                    <a class="btn btn-sm btn-info" href="<?php echo base_url('admin/data_jabatan/update_data/' . $j->id) ?>"><i class="fas fa-edit"></i></a>
+                    <a onclick="return confirm('Yakin Hapus?')" class="btn btn-sm btn-danger" href="<?php echo base_url('admin/data_jabatan/delete_data/' . $j->id) ?>"><i class="fas fa-trash"></i></a>
                   </center>
                 </td>
               </tr>
-            <?php endforeach; ?>
+            <?php endforeach;?>
           </tbody>
         </table>
       </div>

@@ -7,7 +7,7 @@ class Data_Absensi extends CI_Controller
     {
         parent::__construct();
 
-        if ($this->session->userdata('hak_akses') != '1') {
+        if ($this->session->userdata('role_id') != '1') {
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
 				<strong>Anda Belum Login!</strong>
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -32,14 +32,25 @@ class Data_Absensi extends CI_Controller
             $bulantahun = $bulan . $tahun;
         }
 
-        $data['absensi'] = $this->db->query("SELECT data_kehadiran.*,
-		data_pegawai.nama_pegawai,
-		data_pegawai.jenis_kelamin,
-		data_pegawai.jabatan
-			FROM data_kehadiran
-			INNER JOIN data_pegawai ON data_kehadiran.nik= data_pegawai.nik
-			INNER JOIN data_jabatan ON data_pegawai.jabatan = data_jabatan.nama_jabatan
-			WHERE data_kehadiran.bulan='$bulantahun' ORDER BY data_pegawai.nama_pegawai ASC")->result();
+        $data['presences'] = $this->db->select('presences.month_year,
+        presences.hadir,
+        presences.lembur,
+        presences.um_lembur,
+        presences.ts_lembur,
+        users.id,
+        user_profiles.full_name,
+        user_profiles.user_id,
+        user_profiles.gender,
+        user_profiles.nik,
+        positions.name,')
+            ->from('presences')
+            ->join('users', 'users.id=presences.user_id')
+            ->join('positions', 'users.position_id=positions.id')
+            ->join('user_profiles', 'users.id=user_profiles.user_id')
+            ->where('presences.month_year', $bulantahun)
+            ->where('users.role_id !=', 1)
+            ->order_by('user_profiles.user_id')
+            ->get()->result();
 
         $this->load->view('template_admin/header', $data);
         $this->load->view('template_admin/sidebar');
@@ -53,19 +64,19 @@ class Data_Absensi extends CI_Controller
             $post = $this->input->post();
 
             foreach ($post['bulan'] as $key => $value) {
-                if ($post['bulan'][$key] != '' || $post['nik'][$key] != '') {
+                if ($post['bulan'][$key] != '') {
+
                     $simpan[] = array(
-                        'bulan' => $post['bulan'][$key],
-                        'nik' => $post['nik'][$key],
-                        'nama_pegawai' => $post['nama_pegawai'][$key],
-                        'jenis_kelamin' => $post['jenis_kelamin'][$key],
-                        'nama_jabatan' => $post['nama_jabatan'][$key],
+                        'user_id' => $post['user_id'][$key],
+                        'month_year' => $post['bulan'][$key],
                         'hadir' => $post['hadir'][$key],
                         'lembur' => $post['lembur'][$key],
+                        'um_lembur' => $post['umLembur'][$key],
+                        'ts_lembur' => $post['tsLembur'][$key],
                     );
                 }
             }
-            $this->ModelPenggajian->insert_batch('data_kehadiran', $simpan);
+            $this->ModelPenggajian->insert_batch('presences', $simpan);
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
 				<strong>Data berhasil ditambahkan!</strong>
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -87,11 +98,17 @@ class Data_Absensi extends CI_Controller
             $tahun = date('Y');
             $bulantahun = $bulan . $tahun;
         }
-        $data['input_absensi'] = $this->db->query("SELECT data_pegawai.*,
-		data_jabatan.nama_jabatan
-		FROM data_pegawai
-		INNER JOIN data_jabatan ON data_pegawai.jabatan = data_jabatan.nama_jabatan
-		WHERE NOT EXISTS (SELECT * FROM data_kehadiran WHERE bulan='$bulantahun' AND data_pegawai.nik=data_kehadiran.nik) ORDER BY data_pegawai.nama_pegawai ASC")->result();
+        $data['input_absensi'] = $this->db->select('users.*,
+        user_profiles.*,
+        positions.*')
+            ->from('users')
+            ->join('positions', 'users.position_id=positions.id')
+            ->join('user_profiles', 'users.id=user_profiles.user_id')
+            ->where_not_in('SELECT * FROM presences WHERE bulan="$bulantahun"')
+            ->where('users.role_id !=', 1)
+            ->order_by('user_profiles.full_name', 'ASC')
+            ->get()->result();
+
         $this->load->view('template_admin/header', $data);
         $this->load->view('template_admin/sidebar');
         $this->load->view('admin/absensi/tambah_dataAbsensi', $data);
