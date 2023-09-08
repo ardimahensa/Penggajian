@@ -1,6 +1,8 @@
 #PROGRAM PENGGAJIAN
 
-## Tugas Akhir Perancangan program
+## Tugas Akhir Perancangan program 
+
+CodeIgniter3 + Xampp
 
 input :
 - [x] Data Jabatan
